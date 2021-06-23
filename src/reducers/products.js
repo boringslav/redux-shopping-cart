@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART } from '../actions'
+import {RECEIVE_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART} from '../actions'
 
 function products(state, action) {
   switch (action.type) {

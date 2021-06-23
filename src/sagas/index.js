@@ -4,6 +4,19 @@ import { take, put, call, fork, select, takeEvery, all } from 'redux-saga/effect
 import * as actions from '../actions'
 import { getCart } from '../reducers'
 import { api } from '../services'
+import {getQuantity} from "../reducers/cart";
+
+export function* removeAllFromCart({productId}){
+  const quantity = yield select((state)=> getQuantity(state.cart, productId))
+
+  for(let i = 0; i < quantity; i++){
+    yield put(actions.removeFromCart(productId))
+  }
+}
+
+export function* watchRemoveAllFromCart(){
+  yield takeEvery(actions.REMOVE_ALL_FROM_CART,removeAllFromCart)
+}
 
 export function* getAllProducts() {
   const products = yield call(api.getProducts)
@@ -43,5 +56,5 @@ export function* watchCheckout() {
 }
 
 export default function* root() {
-  yield all([fork(getAllProducts), fork(watchGetProducts), fork(watchCheckout)])
+  yield all([fork(getAllProducts), fork(watchGetProducts), fork(watchCheckout), fork(watchRemoveAllFromCart)])
 }

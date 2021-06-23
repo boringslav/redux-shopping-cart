@@ -3,7 +3,7 @@ export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-
+export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART'
 export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST'
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS'
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE'
@@ -34,7 +34,12 @@ export function removeFromCart(productId) {
     productId,
   }
 }
-
+export function removeAllFromCart(productId){
+  return{
+    type: REMOVE_ALL_FROM_CART,
+    productId,
+  }
+}
 export function checkout() {
   return {
     type: CHECKOUT_REQUEST,

@@ -4,10 +4,6 @@
 
 ---
 
-### DONE Task: SC-102 Refactor Cart to functional component (will be merged before your PR)
-
----
-
 ### Bug: SC-125 Failed purchase breaks app
 I cannot buy anything after payment fails.
 

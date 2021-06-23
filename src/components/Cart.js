@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CartItem from './CartItem'
 import { connect } from 'react-redux'
-import { checkout, removeFromCart } from '../actions'
+import {addToCart, checkout, removeFromCart, removeAllFromCart} from '../actions'
 import { getTotal, getCartProducts, getCheckoutError, isCheckoutPending } from '../reducers'
 
 class Cart extends Component {
   render() {
-    const { products, total, error, checkoutPending, checkout, removeFromCart } = this.props
+    const { products, total, error, checkoutPending, checkout, removeFromCart,addToCart, removeAllFromCart } = this.props
 
     const hasProducts = products.length > 0
     const checkoutAllowed = hasProducts && !checkoutPending
@@ -22,6 +22,8 @@ class Cart extends Component {
           quantity={product.quantity}
           key={product.id}
           onRemove={() => removeFromCart(product.id)}
+          onAdd = {()=> addToCart(product.id)}
+          onRemoveAll={()=> removeAllFromCart(product.id)}
         />
       ))
     )
@@ -57,6 +59,8 @@ Cart.propTypes = {
   // actions
   checkout: PropTypes.func.isRequired,
   removeFromCart: PropTypes.func.isRequired,
+    addToCart:PropTypes.func.isRequired,
+    removeAllFromCart:PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -66,5 +70,5 @@ export default connect(
     error: getCheckoutError(state),
     checkoutPending: isCheckoutPending(state),
   }),
-  { checkout, removeFromCart },
+  { checkout, removeFromCart, addToCart, removeAllFromCart},
 )(Cart)

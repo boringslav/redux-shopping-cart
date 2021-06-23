@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TO_CART, REMOVE_FROM_CART, CHECKOUT_REQUEST, CHECKOUT_SUCCESS, CHECKOUT_FAILURE } from '../actions'
+import { ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART,CHECKOUT_REQUEST, CHECKOUT_SUCCESS, CHECKOUT_FAILURE } from '../actions'
 
 const initialState = {
   checkoutStatus: {
@@ -22,6 +22,7 @@ function checkoutStatus(state = initialState.checkoutStatus, action) {
     case CHECKOUT_FAILURE:
       return {
         ...state,
+        checkoutPending: false,
         error: action.error,
       }
     default:
@@ -45,6 +46,7 @@ function quantityById(state = initialState.quantityById, action) {
       if (qty > 0) copy[productId] = qty
       else delete copy[productId]
       return copy
+
     default:
       return state
   }
